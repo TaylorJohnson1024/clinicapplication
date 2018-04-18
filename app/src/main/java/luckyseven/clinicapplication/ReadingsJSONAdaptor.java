@@ -17,10 +17,17 @@ import java.util.LinkedList;
 
 public class ReadingsJSONAdaptor {
 
+    private final String clinicId = "clinic_id";
+    private final String patientId = "patient_id";
+    private final String readingType = "reading_type";
+    private final String readingId = "reading_id";
+    private final String readingValue = "reading_value";
+    private final String readingDate = "reading_date";
+
     /**
      * Constructor method for ReadingsJSONAdaptor
      */
-    ReadingsJSONAdaptor() { }
+    public ReadingsJSONAdaptor() { }
 
     //==================================JSONToReading========================================
     /**
@@ -52,16 +59,16 @@ public class ReadingsJSONAdaptor {
     public Reading switchJSONObjectToReading(JSONObject reading)
     {
         String clinic_id = "";
-        try{ clinic_id = reading.get("clinic_id").toString();
+        try{ clinic_id = reading.get(clinicId).toString();
         }catch (NullPointerException e){
        
         }
          //reading.get("clinic_id").toString();  <-- Must not have a value for clinic id
-        String patient_id = reading.get("patient_id").toString();
-        String type = reading.get("reading_type").toString();
-        String reading_id = reading.get("reading_id").toString();
-        String value = reading.get("reading_value").toString();
-        String date = reading.get("reading_date").toString();
+        String patient_id = reading.get(patientId).toString();
+        String type = reading.get(readingType).toString();
+        String reading_id = reading.get(readingId).toString();
+        String value = reading.get(readingValue).toString();
+        String date = reading.get(readingDate).toString();
 
         Reading thisReading = new  Reading(patient_id, clinic_id, type, reading_id, value, date);
         return thisReading;
@@ -102,12 +109,12 @@ public class ReadingsJSONAdaptor {
     {
         JSONObject thisReading = new JSONObject();
 
-        thisReading.put("clinic_id", readingObject.getClinic());
-        thisReading.put("patient_id", readingObject.getPatientID());
-        thisReading.put("reading_type", readingObject.getRType());
-        thisReading.put("reading_id", readingObject.getRId());
-        thisReading.put("reading_value", readingObject.getRValue());
-        thisReading.put("reading_date", readingObject.getRDate().getTime());
+        thisReading.put(clinicId, readingObject.getClinic());
+        thisReading.put(patientId, readingObject.getPatientID());
+        thisReading.put(readingType, readingObject.getRType());
+        thisReading.put(readingId, readingObject.getRId());
+        thisReading.put(readingValue, readingObject.getRValue());
+        thisReading.put(readingDate, readingObject.getRDate().getTime());
 
         return thisReading;
     }
