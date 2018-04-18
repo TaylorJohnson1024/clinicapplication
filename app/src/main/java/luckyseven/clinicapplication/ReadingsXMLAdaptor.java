@@ -12,10 +12,18 @@ public class ReadingsXMLAdaptor {
     private Reading thisReading;
     private String clinic_id;
     private String patient_id;
-    private String type;
+    private String readingType;
     private String reading_id;
-    private String value;
+    private String readingValue;
     private String date;
+
+
+    private final String id = "id";
+    private final String type = "type";
+    private final String clinic = "Clinic";
+    private final String reading = "Reading";
+    private final String value = "Value";
+    private final String patient = "Patient";
 
 
     /**
@@ -43,55 +51,55 @@ public class ReadingsXMLAdaptor {
 
                 switch(data.getNodeName())
                 {
-                    case "Clinic":
+                    case clinic:
                         if(clinic_id == null)
                         {
-                            clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
-                        }else if(patient_id != null && type != null && value != null)
+                            clinic_id = data.getAttributes().getNamedItem(id).getNodeValue();
+                        }else if(patient_id != null && readingType != null && readingValue != null)
                         {
                             AddReadingToList();
-                            clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
+                            clinic_id = data.getAttributes().getNamedItem(id).getNodeValue();
                         }else{
                             setAllDataNull();
-                            clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
+                            clinic_id = data.getAttributes().getNamedItem(id).getNodeValue();
                         }
                         break;
-                    case "Reading":
-                        if(type == null)
+                    case reading:
+                        if(readingType == null)
                         {
-                            type = data.getAttributes().getNamedItem("type").getNodeValue();
-                            reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
-                        }else if(patient_id != null && value != null) //ensure there is a patient ID before adding a Reading.
+                            readingType = data.getAttributes().getNamedItem(type).getNodeValue();
+                            reading_id = data.getAttributes().getNamedItem(id).getNodeValue();
+                        }else if(patient_id != null && readingValue != null) //ensure there is a patient ID before adding a Reading.
                         {
                             AddReadingToList();
-                            type = data.getAttributes().getNamedItem("type").getNodeValue();
-                            reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
+                            readingType = data.getAttributes().getNamedItem(type).getNodeValue();
+                            reading_id = data.getAttributes().getNamedItem(id).getNodeValue();
                         }else
                         {
                             setAllDataNull();
-                            type = data.getAttributes().getNamedItem("type").getNodeValue();
-                            reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
+                            readingType = data.getAttributes().getNamedItem(type).getNodeValue();
+                            reading_id = data.getAttributes().getNamedItem(id).getNodeValue();
                         }
                         break;
-                    case "Value":
-                        if(value == null)
+                    case value:
+                        if(readingValue == null)
                         {
-                            value = data.getTextContent();
-                        }else if(patient_id != null && type != null) //ensure there is a patient ID before adding a Reading.
+                            readingValue = data.getTextContent();
+                        }else if(patient_id != null && readingType != null) //ensure there is a patient ID before adding a Reading.
                         {
                             AddReadingToList();
-                            value = data.getTextContent();
+                            readingValue = data.getTextContent();
                         }else
                         {
                             setAllDataNull();
-                            value = data.getTextContent();
+                            readingValue = data.getTextContent();
                         }
                         break;
-                    case "Patient":
+                    case patient:
                         if(patient_id == null)
                         {
                             patient_id = data.getTextContent();
-                        }else if(type != null && value != null)
+                        }else if(readingType != null && readingValue != null)
                         {
                             AddReadingToList();
                             patient_id = data.getTextContent();
@@ -115,9 +123,9 @@ public class ReadingsXMLAdaptor {
     private void setAllDataNull()
     {
         patient_id = null;
-        type = null;
+        readingType = null;
         reading_id = null;
-        value = null;
+        readingValue = null;
         date = null;
     }
 
@@ -132,7 +140,7 @@ public class ReadingsXMLAdaptor {
     {
         Date date = new Date();
         
-        thisReading = new  Reading(patient_id, clinic_id, type, reading_id, value, date);
+        thisReading = new  Reading(patient_id, clinic_id, readingType, reading_id, readingValue, date);
         readingArrayList.add(thisReading);
 
         setAllDataNull();
