@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javax.swing.*;
 
-import javafx.scene.control.Alert;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,48 +34,13 @@ public class Input {
     }
 
     /**
-     * Creates the JFileChooser and stores the selected file.
-     */
-    public void fileChooser() {
-
-        // Create and open JFileChooser
-        // Sets path of JSON file
-        JFileChooser fc = new JFileChooser();
-
-        // Forces filechooser to use the user directory that launched the chooser
-        fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        fc.showOpenDialog(null);
-
-        this.inFile = fc.getSelectedFile();
-
-        // If there is no file selected, then exit gracefully
-        if (inFile == null) {
-
-            // show a message box letting the user know that no file has been selected
-            int reply = JOptionPane.showConfirmDialog(null, "No file chosen. Do you want to select a file?", "", JOptionPane.YES_NO_OPTION);
-
-            // if the user chooses to select a file, rerun filechooser method
-            if (reply == JOptionPane.YES_OPTION) {
-                fileChooser();
-            }
-
-            /* if the "No" option is chosen, an NPE is thrown in the ClinicApplication class, which is caught and swallowed
-             * and the program returns to the GUI */
-        }
-
-        // If there is a file selected, then the file type is determined
-        if (!(inFile == null))
-            parseFileType();
-    }
-
-    /**
      * Parses inFile to retrieve the file type.
      * Ex. file named foobar.txt would return "txt"
      *
      * @return String of the fileType
      * @see "https://stackoverflow.com/questions/3571223/how-do-i-get-the-file-extension-of-a-file-in-java/21974043"
      */
-    private String parseFileType() {
+    public String parseFileType() {
         String name = inFile.getName();
         try {
             this.fileType = name.substring(name.lastIndexOf(".") + 1);
@@ -112,6 +76,11 @@ public class Input {
      */
     public File getFile() {
         return inFile;
+    }
+
+    public void setInFile(File inFile) {
+        this.inFile = inFile;
+        this.fileType = parseFileType();
     }
 
     /**
