@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Jacob Fulton
  */
 
-class Patient {
+public class Patient {
     private int id;
     private boolean inTrial;
     private ArrayList<Reading> readings;
