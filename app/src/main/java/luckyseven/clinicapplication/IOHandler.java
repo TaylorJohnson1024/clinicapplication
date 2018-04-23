@@ -15,9 +15,6 @@ public class IOHandler {
     private static IOHandler singleton = null;
     private static Object mutex = new Object();
 
-    private static final int ACTIVITY_CHOOSE_FILE = 1;
-    private static Input in = new Input();
-
     private IOHandler() {
         try {
             loadSavedData();
@@ -48,6 +45,7 @@ public class IOHandler {
 
 
     private void loadSavedData() {
+        Input in = new Input();
         //sets savePath as the directory name the program is stored in.
         savePath = System.getProperty("user.dir");
         savePath += "/src/" + saveName;
