@@ -42,7 +42,7 @@ public class PatientList {
      *
      * @param reading
      */
-    public static void addReading(Reading reading) {
+    public void addReading(Reading reading) {
         int patient_id;
         patient_id = Integer.parseInt((String) reading.getPatientID());
 
@@ -91,7 +91,7 @@ public class PatientList {
      * @param patient_id
      * @param reading
      */
-    public static void addPatient(int index, int patient_id, Reading reading) {
+    public void addPatient(int index, int patient_id, Reading reading) {
         Patient newP = new Patient(patient_id, true);
         newP.addReading(reading);
 
