@@ -15,6 +15,9 @@ public class IOHandler {
     private static IOHandler singleton = null;
     private static Object mutex = new Object();
 
+    private static final int ACTIVITY_CHOOSE_FILE = 1;
+    private static Input in = new Input();
+
     private IOHandler() {
         try {
             loadSavedData();
@@ -44,8 +47,7 @@ public class IOHandler {
 
 
 
-    private static void loadSavedData() {
-        Input in = new Input();
+    private void loadSavedData() {
         //sets savePath as the directory name the program is stored in.
         savePath = System.getProperty("user.dir");
         savePath += "/src/" + saveName;
@@ -66,14 +68,12 @@ public class IOHandler {
     }
 
     /*
-     * opens the File chooser and calls inputJSONObject
-     * if the file is of type json, or inputXML if the
-     * file is of type xml. If the file is neither json
-     * or XML then nothing is done with it.
+     * Call after a File chooser iss used to have the file processed.
+     * calls inputJSONObject if the file is of type json,
+     * or inputXML if the file is of type xml. If the file is neither
+     * json or XML then nothing is done with it.
      */
-    public static void inputChooser() {
-        Input in = new Input();
-        in.fileChooser();
+    public void inputChooser(Input in) {
         String fileType = in.getFileType();
 
         try {
@@ -91,7 +91,7 @@ public class IOHandler {
      *
      * @param inFile -- The file that's being parsed into Reading Objects
      */
-    public static void inputJSONObject(File inFile) {
+    public void inputJSONObject(File inFile) {
         ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
         ParserJSON p = new ParserJSON(inFile);
         ArrayList<Reading> patientReadings = adpt.switchJSONArrayToReadings(p.getJSONArray("patient_readings"));
@@ -108,7 +108,7 @@ public class IOHandler {
      *
      * @param inFile -- The file that's being parsed into Reading Objects
      */
-    public static void inputXML(File inFile) {
+    public void inputXML(File inFile) {
         ReadingsXMLAdaptor adpt = new ReadingsXMLAdaptor();
         ParserXML p = new ParserXML(inFile);
         ArrayList<Reading> patientReadings = adpt.switchXMLToReadings(p.getXMLDocument());
@@ -125,7 +125,7 @@ public class IOHandler {
      *
      * @throws FileNotFoundException
      */
-    public static void exportAllReadings() throws FileNotFoundException {
+    public void exportAllReadings() throws FileNotFoundException {
         ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
         ArrayList<Reading> outReadings = new ArrayList<Reading>();
         PatientList patientList = PatientList.getInstance();
