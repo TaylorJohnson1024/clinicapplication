@@ -17,6 +17,7 @@ public class ViewData extends AppCompatActivity {
 
     ArrayList<Reading> readingList;
 
+
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -35,6 +36,7 @@ public class ViewData extends AppCompatActivity {
 
     }
 
+    //adds readings from the PatientList to a list of only readings
     public void loadReadings() {
         if(!PatientList.getInstance().getPatientList().isEmpty()) {
             for (int i = 0; i < PatientList.getInstance().getPatientList().size(); i++) {

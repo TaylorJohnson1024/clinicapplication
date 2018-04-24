@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 class ReadingViewAdapter extends RecyclerView.Adapter<ReadingViewAdapter.ViewHolder> {
     ArrayList<Reading> readingList;
+
+    //sets up formatting for a date object.
     DateFormat date = new SimpleDateFormat("mm/dd/yyyy hh:mm:ss");
 
     public ReadingViewAdapter(ArrayList<Reading> readings) {
@@ -26,7 +28,7 @@ class ReadingViewAdapter extends RecyclerView.Adapter<ReadingViewAdapter.ViewHol
        return new ViewHolder(view);
     }
 
-
+    //gets data from reading passes from patientlist, and sets textviews to corresponding values.
     @Override
     public void onBindViewHolder(@NonNull ReadingViewAdapter.ViewHolder holder, int position) {
         holder.patientID.setText(readingList.get(position).getPatientID());
@@ -40,12 +42,15 @@ class ReadingViewAdapter extends RecyclerView.Adapter<ReadingViewAdapter.ViewHol
 
     }
 
+
     @Override
     public int getItemCount() {
         return readingList.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        //Textviews to display data
         public TextView patientID;
         public TextView readingID;
         public TextView clinic;
@@ -54,7 +59,7 @@ class ReadingViewAdapter extends RecyclerView.Adapter<ReadingViewAdapter.ViewHol
         public TextView date;
         public TextView trialStatus;
 
-
+        //binding text views to the views in the layout
         public ViewHolder(View itemView) {
             super(itemView);
             patientID = itemView.findViewById(R.id.patientID);

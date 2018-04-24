@@ -27,20 +27,25 @@ public class AddReading extends AppCompatActivity {
     final int ACTIVITY_CHOOSE_FILE = 1;
     Input in = new Input();
 
+    //Buttons//
     Button viewDataBtn;
     Button addReadingBtn;
     Button importBtn;
     Button startTrialBtn;
     Button endTrialBtn;
 
-
+    //TextFields//
     EditText clinic;
     EditText patientID;
     EditText readingValue;
 
+    //Spinner for Reading type selection//
     Spinner readingType;
+
+    //Array adapter used for spinner selections//
     ArrayAdapter<CharSequence> arrayAdapter;
 
+    //String for passing reading type//
     String readingTypeStr = "";
 
 
@@ -64,6 +69,7 @@ public class AddReading extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         readingType.setAdapter(arrayAdapter);
 
+       //sets the readingTypeStr String to the corresponding spinner selection
         readingType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -95,6 +101,7 @@ public class AddReading extends AppCompatActivity {
 
         });
 
+            //Calls the endTrial method when the end trial button is clicked.
         endTrialBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -107,19 +114,20 @@ public class AddReading extends AppCompatActivity {
 
         });
 
+        //Calls the startTrial method when the start trial button is clicked.
         startTrialBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 try {
                     startTrial();
                 }catch (NumberFormatException e){
-                    
+
                 }
             }
 
         });
 
-
+        //Switches the view to show data when the View Data button is clicked
         viewDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +136,7 @@ public class AddReading extends AppCompatActivity {
             }
         });
 
+        //Sets up a file chooser when the input button is clicked
         importBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +151,7 @@ public class AddReading extends AppCompatActivity {
 
         });
 
+        //Adds a reading to the patientList instance when the add reading button is clicked
         addReadingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,6 +160,7 @@ public class AddReading extends AppCompatActivity {
                 String patientIDStr = "";
                 String readingValueStr = "";
 
+                //Checks to make sure data that all required data is entered.
                 Date date = new Date(System.currentTimeMillis());
                 if (clinic.getText().toString().matches("")) {
                     isValid = false;
@@ -159,6 +170,7 @@ public class AddReading extends AppCompatActivity {
                     isValid = false;
                 } else if(!checkTrial()) {
                     isValid = false;
+                    //sets strings to the text entered in the edit Text views.
                 }else{
                     clinicStr = clinic.getText().toString();
                     patientIDStr = patientID.getText().toString();
@@ -174,6 +186,7 @@ public class AddReading extends AppCompatActivity {
     }
 
 
+    //sets up a file chooser to select a file to import
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -187,6 +200,7 @@ public class AddReading extends AppCompatActivity {
         }
     }
 
+    //Takes the patient ID from the patientID text view, and ensures the patient is in a trial
     public void startTrial() {
         if (!patientID.getText().toString().matches("")) {
             int id = Integer.parseInt(patientID.getText().toString());
@@ -204,6 +218,7 @@ public class AddReading extends AppCompatActivity {
         }
     }
 
+    //Takes the patient ID from the patientID text view, and ensures the patient is not in a trial
     public void endTrial() {
         if (!patientID.getText().toString().matches("")) {
             int id = Integer.parseInt(patientID.getText().toString());
@@ -221,7 +236,7 @@ public class AddReading extends AppCompatActivity {
         }
     }
 
-
+    //Checks the trial status of the patient whose ID is entered in the patientID text view
     public boolean checkTrial() {
         boolean inTrial = true;
         if (!patientID.getText().toString().matches("")) {
@@ -241,6 +256,7 @@ public class AddReading extends AppCompatActivity {
         return inTrial;
     }
 
+    //searches for a patient given the patient ID
     public int searchPatient(int i) {
 
         int pos = -1;
@@ -253,6 +269,7 @@ public class AddReading extends AppCompatActivity {
 
     }
 
+    //displays the toast message "Reading Added"
     public void addConfirm(){
         Toast.makeText(this, "Reading Added", LENGTH_SHORT).show();
     }
