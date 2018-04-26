@@ -15,7 +15,7 @@ class ReadingViewAdapter extends RecyclerView.Adapter<ReadingViewAdapter.ViewHol
     ArrayList<Reading> readingList;
 
     //sets up formatting for a date object.
-    DateFormat date = new SimpleDateFormat("mm/dd/yyyy hh:mm:ss");
+    DateFormat date = new SimpleDateFormat("MM/dd/yyyy h:mm a");
 
     public ReadingViewAdapter(ArrayList<Reading> readings) {
         this.readingList = readings;
