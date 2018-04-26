@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">clinicapplication</string>
+    <string name="clinic">Clinic</string>
+    <string name="patient_id">Patient ID</string>
+    <string name="button">Button</string>
+    <string name="reading_value">Reading Value</string>
+    <string name="add_reading">Add Reading</string>
+    <string name="start_trial">Start Trial</string>
+    <string name="end_trial">End Trial</string>
+    <string name="spacer">: </string>
+    <string name="errorNumericaID">Patient ID must be numerical</string>
+    <string-array name="reading_type_array">
+    <item>Temperature</item>
+    <item>Weight</item>
+    <item>Steps</item>
+    <item>Blood Pressure</item>
+
+    </string-array>string-array>
 </resources>
