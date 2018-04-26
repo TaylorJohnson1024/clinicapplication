@@ -16,7 +16,6 @@ public class Patient {
     private int id;
     private boolean inTrial;
     private ArrayList<Reading> readings;
-    private ReadingList readingsArray;
 
     public Patient(int id, boolean inTrial) {
         readings = new ArrayList<Reading>();
